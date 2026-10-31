@@ -1,0 +1,10 @@
+---
+import SectionHead from './SectionHead.astro';
+import ProjectExplorer from './projects/ProjectExplorer';
+import { projects } from '@/data/projects';
+---
+
+<section class="section" id="projects" aria-labelledby="projects-title">
+  <SectionHead eyebrow="Projects" id="projects-title">Things I’ve built.</SectionHead>
+  <ProjectExplorer client:visible projects={projects} />
+</section>

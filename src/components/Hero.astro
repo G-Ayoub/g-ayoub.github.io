@@ -1,0 +1,30 @@
+---
+import { profile } from '@/data/profile';
+import { projects } from '@/data/projects';
+import { patents } from '@/data/patents';
+
+const stats = [
+  { label: 'Years building', value: profile.yearsBuilding },
+  { label: 'Shipped projects', value: String(projects.length) },
+  { label: 'Patents filed', value: String(patents.length) },
+];
+---
+
+<section class="hero" id="top">
+  <p class="eyebrow">{profile.role}</p>
+  <h1 class="display">{profile.name}</h1>
+  <p class="lede">{profile.lede}</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary pressable" href="#projects">View projects</a>
+    <a class="btn btn-ghost pressable" href="#contact">Get in touch</a>
+  </div>
+
+  <dl class="stats">
+    {stats.map((s) => (
+      <div>
+        <dt>{s.label}</dt>
+        <dd>{s.value}</dd>
+      </div>
+    ))}
+  </dl>
+</section>

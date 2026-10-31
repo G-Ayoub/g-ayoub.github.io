@@ -1,0 +1,98 @@
+---
+import { Moon, Sun } from 'lucide-react';
+import { profile } from '@/data/profile';
+
+const links = [
+  { href: '#about', label: 'About' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#patents', label: 'Patents' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header class="nav" id="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#top" aria-label="Back to top">{profile.name}</a>
+    <nav aria-label="Sections">
+      {links.map((l) => <a href={l.href} data-nav>{l.label}</a>)}
+    </nav>
+    <button class="theme-toggle pressable" id="themeToggle" type="button" aria-label="Toggle dark mode">
+      <Sun className="icon-sun" aria-hidden="true" strokeWidth={1.8} />
+      <Moon className="icon-moon" aria-hidden="true" strokeWidth={1.8} />
+    </button>
+  </div>
+</header>
+
+<script>
+  const root = document.documentElement;
+  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  type Theme = 'light' | 'dark';
+  const effectiveTheme = (): Theme =>
+    (root.getAttribute('data-theme') as Theme | null) ?? (darkQuery.matches ? 'dark' : 'light');
+
+  // --- Theme toggle (cross-fades via the View Transitions API where available)
+  const toggle = document.getElementById('themeToggle');
+  if (toggle) {
+    const syncLabel = () =>
+      toggle.setAttribute('aria-label', effectiveTheme() === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+    syncLabel();
+    darkQuery.addEventListener('change', syncLabel);
+
+    toggle.addEventListener('click', () => {
+      const next: Theme = effectiveTheme() === 'dark' ? 'light' : 'dark';
+      const apply = () => {
+        root.setAttribute('data-theme', next);
+        try {
+          localStorage.setItem('theme', next);
+        } catch {}
+        syncLabel();
+      };
+      if (document.startViewTransition && !reduceMotion.matches) document.startViewTransition(apply);
+      else apply();
+    });
+  }
+
+  // --- Scroll-edge hairline: only once content is underneath the bar
+  const nav = document.getElementById('nav');
+  if (nav) {
+    let ticking = false;
+    const update = () => {
+      nav.classList.toggle('is-scrolled', window.scrollY > 4);
+      ticking = false;
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true },
+    );
+    update();
+  }
+
+  // --- Active section in the nav
+  const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-nav]'));
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        for (const a of navLinks) {
+          const on = a.hash === `#${entry.target.id}`;
+          a.classList.toggle('is-active', on);
+          if (on) a.setAttribute('aria-current', 'true');
+          else a.removeAttribute('aria-current');
+        }
+      }
+    },
+    { rootMargin: '-45% 0px -50% 0px' },
+  );
+  for (const a of navLinks) {
+    const target = document.querySelector(a.hash);
+    if (target) observer.observe(target);
+  }
+</script>
