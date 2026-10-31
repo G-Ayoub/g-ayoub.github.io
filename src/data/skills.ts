@@ -7,10 +7,21 @@ export interface Skill {
 }
 
 export const skills: Skill[] = [
-  { title: 'Mobile', items: 'Android (Java/Kotlin), Flutter, Dart', icon: 'phone' },
-  { title: 'Backend', items: 'Django, REST APIs, PostgreSQL, SQLite', icon: 'database' },
-  { title: 'IoT & Hardware', items: 'Bluetooth SPP, HID, NFC, iBeacon, SNMP', icon: 'radio' },
-  { title: 'DevOps', items: 'Docker, Kubernetes (basic), CI/CD pipelines', icon: 'container' },
-  { title: 'Security', items: 'Secure coding practices, JWT/Keycloak authentication', icon: 'shield' },
-  { title: 'Cloud & Tools', items: 'Firebase, Grafana, Prometheus, k6, InfluxDB', icon: 'chart' },
+  { title: 'Mobile', items: 'Flutter / Dart, Android (Kotlin, Java), iOS via Flutter', icon: 'phone' },
+  { title: 'Backend', items: 'Python, Django, REST APIs, PostgreSQL, MySQL, SQLite', icon: 'database' },
+  { title: 'AI', items: 'LLM agents, text-to-SQL, chatbots, prompt engineering', icon: 'ai' },
+  { title: 'IoT', items: 'Bluetooth (SPP, HID, BLE), iBeacon, NFC, SNMP, Modbus', icon: 'radio' },
+  { title: 'DevOps', items: 'Docker, Kubernetes (basic), CI/CD, Harbor registry', icon: 'container' },
+  { title: 'Monitoring & QA', items: 'Grafana, Prometheus, InfluxDB, k6 load testing', icon: 'activity' },
+  { title: 'Cloud & Security', items: 'Firebase, Keycloak / JWT auth, secure coding', icon: 'lock' },
+  { title: 'Networking', items: 'Routing & switching, MSAN, DSLAM, BRAS', icon: 'network' },
+];
+
+export const strengths: string[] = [
+  'Team management & coaching',
+  'Full-stack delivery (mobile + backend)',
+  'Annual planning & project portfolio',
+  'Agile delivery (Scrum)',
+  'Executive reporting',
+  'IT service management (ITIL)',
 ];

@@ -1,0 +1,32 @@
+---
+import SectionHead from './SectionHead.astro';
+import { experience } from '@/data/experience';
+---
+
+<section class="section" id="experience" aria-labelledby="experience-title">
+  <SectionHead eyebrow="Experience" id="experience-title">
+    Twelve years inside<br />Algeria’s telecom operator.
+  </SectionHead>
+
+  <ol class="timeline" role="list">
+    {
+      experience.map((role) => (
+        <li class="role reveal">
+          <div class="role-head">
+            <div>
+              <h3>{role.title}</h3>
+              <p class="role-org">
+                <strong>{role.company}</strong> — {role.unit}
+              </p>
+              {role.note && <p class="role-note">{role.note}</p>}
+            </div>
+            <time datetime={role.start}>{role.period}</time>
+          </div>
+          <ul class="role-points" role="list">
+            {role.highlights.map((h) => <li>{h}</li>)}
+          </ul>
+        </li>
+      ))
+    }
+  </ol>
+</section>

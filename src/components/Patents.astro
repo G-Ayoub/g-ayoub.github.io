@@ -3,13 +3,15 @@ import SectionHead from './SectionHead.astro';
 import { patents } from '@/data/patents';
 
 const dateFormat = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const issued = patents.filter((p) => p.status === 'issued').length;
 ---
 
 <section class="section" id="patents" aria-labelledby="patents-title">
   <SectionHead eyebrow="Patents" id="patents-title">
     Ideas, on the record.
     <Fragment slot="body">
-      Four inventions filed with INAPI (Algeria), spanning child safety, telecom hardware and radio detection.
+      Co-inventor on {patents.length} patents filed with INAPI (Algeria), {issued} of them issued — spanning child safety,
+      telecom hardware and radio detection.
     </Fragment>
   </SectionHead>
 
@@ -17,12 +19,12 @@ const dateFormat = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'nume
     {
       patents.map((p) => (
         <li class="patent">
-          <time datetime={p.filed}>{dateFormat.format(new Date(p.filed))}</time>
+          <time datetime={p.date}>{dateFormat.format(new Date(p.date))}</time>
           <div>
             <h3>{p.title}</h3>
             <p>{p.number} · {p.office}</p>
           </div>
-          <span class="badge">{p.status}</span>
+          <span class={`badge badge-${p.status}`}>{p.status === 'issued' ? 'Issued' : 'Filed'}</span>
         </li>
       ))
     }
