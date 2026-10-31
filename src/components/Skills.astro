@@ -1,0 +1,30 @@
+---
+import SectionHead from './SectionHead.astro';
+import { profile } from '@/data/profile';
+import { skills } from '@/data/skills';
+import { icons } from '@/lib/icons';
+---
+
+<section class="section" id="about" aria-labelledby="about-title">
+  <SectionHead eyebrow="About" id="about-title">
+    From the phone in your hand<br />to the server rack behind it.
+    <Fragment slot="body">{profile.about}</Fragment>
+  </SectionHead>
+
+  <ul class="skills" role="list">
+    {
+      skills.map((skill) => {
+        const Icon = icons[skill.icon];
+        return (
+          <li class="tile reveal">
+            <span class="tile-glyph" aria-hidden="true">
+              <Icon strokeWidth={1.8} />
+            </span>
+            <h3>{skill.title}</h3>
+            <p>{skill.items}</p>
+          </li>
+        );
+      })
+    }
+  </ul>
+</section>
