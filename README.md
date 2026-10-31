@@ -16,7 +16,7 @@ npm run build    # static site in dist/
 All copy lives in typed data files under `src/data/` — edit those, not the components:
 
 - `profile.ts` — name, role, intro, stats, contact links
-- `skills.ts`, `projects.ts`, `patents.ts`
+- `skills.ts`, `experience.ts`, `projects.ts`, `patents.ts`, `background.ts`
 
 ## Deploy
 

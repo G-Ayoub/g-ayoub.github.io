@@ -1,0 +1,54 @@
+---
+import { Award, GraduationCap, Handshake, Languages, Mic } from 'lucide-react';
+import SectionHead from './SectionHead.astro';
+import { certifications, collaborations, conferences, education, languages } from '@/data/background';
+---
+
+<section class="section" id="background" aria-labelledby="background-title">
+  <SectionHead eyebrow="Background" id="background-title">Education &amp; credentials.</SectionHead>
+
+  <div class="background-grid">
+    <article class="group reveal">
+      <h3 class="group-title"><GraduationCap aria-hidden="true" strokeWidth={1.8} /> Education</h3>
+      <p class="group-lead">{education.degree}</p>
+      <p class="group-sub">{education.school} · {education.year}</p>
+    </article>
+
+    <article class="group reveal">
+      <h3 class="group-title"><Languages aria-hidden="true" strokeWidth={1.8} /> Languages</h3>
+      <dl class="pairs">
+        {languages.map((l) => (
+          <div>
+            <dt>{l.name}</dt>
+            <dd>{l.level}</dd>
+          </div>
+        ))}
+      </dl>
+    </article>
+
+    <article class="group group-wide reveal">
+      <h3 class="group-title"><Award aria-hidden="true" strokeWidth={1.8} /> Certifications &amp; training</h3>
+      <ul class="chips" role="list">
+        {certifications.map((c) => <li>{c}</li>)}
+      </ul>
+    </article>
+
+    <article class="group reveal">
+      <h3 class="group-title"><Mic aria-hidden="true" strokeWidth={1.8} /> Conferences</h3>
+      <ul class="plain" role="list">
+        {conferences.map((c) => <li>{c}</li>)}
+      </ul>
+    </article>
+
+    <article class="group reveal">
+      <h3 class="group-title"><Handshake aria-hidden="true" strokeWidth={1.8} /> University collaboration</h3>
+      <ul class="plain" role="list">
+        {collaborations.map((c) => (
+          <li>
+            {c.topic} <span class="muted">— {c.with}</span>
+          </li>
+        ))}
+      </ul>
+    </article>
+  </div>
+</section>

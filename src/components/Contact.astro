@@ -1,29 +1,39 @@
 ---
 import { ArrowUpRight, ChevronRight } from 'lucide-react';
 import SectionHead from './SectionHead.astro';
-import { contacts } from '@/data/profile';
+import { contacts, profile } from '@/data/profile';
 ---
 
 <section class="section" id="contact" aria-labelledby="contact-title">
-  <SectionHead eyebrow="Contact" id="contact-title">Let’s build something.</SectionHead>
+  <SectionHead eyebrow="Contact" id="contact-title">
+    Let’s build something.
+    <Fragment slot="body">{profile.availability}</Fragment>
+  </SectionHead>
 
   <ul class="contact reveal" role="list">
     {
       contacts.map((c) => (
         <li>
-          <a
-            class="contact-row pressable"
-            href={c.href}
-            {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}
-          >
-            <span class="contact-label">{c.label}</span>
-            <span class="contact-value">{c.value}</span>
-            {c.external ? (
-              <ArrowUpRight className="chev" aria-hidden="true" />
-            ) : (
-              <ChevronRight className="chev" aria-hidden="true" />
-            )}
-          </a>
+          {c.href ? (
+            <a
+              class="contact-row pressable"
+              href={c.href}
+              {...(c.external ? { target: '_blank', rel: 'noopener' } : {})}
+            >
+              <span class="contact-label">{c.label}</span>
+              <span class="contact-value">{c.value}</span>
+              {c.external ? (
+                <ArrowUpRight className="chev" aria-hidden="true" />
+              ) : (
+                <ChevronRight className="chev" aria-hidden="true" />
+              )}
+            </a>
+          ) : (
+            <div class="contact-row is-static">
+              <span class="contact-label">{c.label}</span>
+              <span class="contact-value">{c.value}</span>
+            </div>
+          )}
         </li>
       ))
     }

@@ -12,6 +12,7 @@ interface Props {
 /** A project tile. `layout` lets it glide to its new slot when the grid re-flows. */
 export default function ProjectCard({ project, ref }: Props) {
   const Icon = icons[project.icon];
+  const tags = project.stack ?? project.categories.map((c) => categoryLabels[c]);
   return (
     <motion.li
       ref={ref}
@@ -23,14 +24,18 @@ export default function ProjectCard({ project, ref }: Props) {
       exit={{ opacity: 0, scale: 0.94 }}
       transition={{ ...springs.layout, opacity: { duration: 0.2 } }}
     >
-      <div className="card-icon" aria-hidden="true">
-        <Icon strokeWidth={1.8} />
+      <div className="card-top">
+        <div className="card-icon" aria-hidden="true">
+          <Icon strokeWidth={1.8} />
+        </div>
+        {project.years && <span className="card-years">{project.years}</span>}
       </div>
       <h3>{project.title}</h3>
+      {project.metric && <p className="card-metric">{project.metric}</p>}
       <p>{project.summary}</p>
-      <ul className="tags" aria-label="Categories">
-        {project.categories.map((c) => (
-          <li key={c}>{categoryLabels[c]}</li>
+      <ul className="tags" aria-label={project.stack ? 'Stack' : 'Categories'}>
+        {tags.map((t) => (
+          <li key={t}>{t}</li>
         ))}
       </ul>
     </motion.li>

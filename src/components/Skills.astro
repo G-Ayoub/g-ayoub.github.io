@@ -1,7 +1,7 @@
 ---
 import SectionHead from './SectionHead.astro';
 import { profile } from '@/data/profile';
-import { skills } from '@/data/skills';
+import { skills, strengths } from '@/data/skills';
 import { icons } from '@/lib/icons';
 ---
 
@@ -27,4 +27,11 @@ import { icons } from '@/lib/icons';
       })
     }
   </ul>
+
+  <div class="strengths reveal">
+    <h3 class="subhead">Core strengths</h3>
+    <ul class="chips" role="list">
+      {strengths.map((s) => <li>{s}</li>)}
+    </ul>
+  </div>
 </section>
